@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.font as tkfont
 from tkinter.scrolledtext import ScrolledText
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 
@@ -11,9 +12,14 @@ window.columnconfigure(0, weight=1)
 
 textarea = ScrolledText(window)
 
+font = tkfont.Font(font=textarea["font"])
+tab_size = font.measure("        ")
+# Configure tabs. The default tabstyle of "tabular" creates undesired alignment.  
+textarea.config(tabs=(tab_size, tk.LEFT), tabstyle="wordprocessor")
+
 textarea.grid(row=0, column=0, sticky="nsew")
 
-# Override the default menu style
+# Override the default menu style.
 window.option_add("*tearOff", False)
 
 menubar = tk.Menu(window)
