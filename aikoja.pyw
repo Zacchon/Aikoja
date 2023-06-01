@@ -41,7 +41,7 @@ window.title("Aikoja")
 window.rowconfigure(0, weight=1)
 window.columnconfigure(0, weight=1)
 
-textarea = ScrolledText(window)
+textarea = ScrolledText(window, undo=True, autoseparators=True)
 
 font = tkfont.Font(font=textarea["font"])
 tab_size = font.measure("        ")
