@@ -35,7 +35,7 @@ def create_csv(file_in, file_out):
 	current_day = "UNDEFINED_DAY"
 	current_activity = "UNDEFINED_ACTIVITY"
 
-	f_out.write("viikonpäivä,päivämäärä,aloitus,lopetus,toiminta,lisämääre\n")
+	file_out.write("viikonpäivä,päivämäärä,aloitus,lopetus,toiminta,lisämääre\n")
 	for idx, line in enumerate(file_in):
 		if (idx % 100 == 0):
 			print(f"Processing line {idx}.")
@@ -107,10 +107,10 @@ def create_csv(file_in, file_out):
 		file_out.write(f"{current_day},{output_line}")
 		file_out.write("\n")
 
-	f_in.close()
-	f_out.close()
+	file_in.close()
+	file_out.close()
 
-f_in = open("./data/ajkoja eletty2023.txt", "r", encoding="utf8")
-f_out = open("./data/ajat2023.csv", "w", encoding="utf8")
+#f_in = open("./data/ajkoja eletty2023.txt", "r", encoding="utf8")
+#f_out = open("./data/ajat2023.csv", "w", encoding="utf8")
 
-create_csv(f_in, f_out)
+#create_csv(f_in, f_out)
