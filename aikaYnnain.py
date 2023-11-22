@@ -110,7 +110,7 @@ def create_csv(file_in, file_out):
 	file_in.close()
 	file_out.close()
 
-#f_in = open("./data/ajkoja eletty2023.txt", "r", encoding="utf8")
-#f_out = open("./data/ajat2023.csv", "w", encoding="utf8")
+#f_in = open("./data/ajkoja eletty2022.txt", "r", encoding="utf8")
+#f_out = open("./data/ajat2022.csv", "w", encoding="utf8")
 
 #create_csv(f_in, f_out)
