@@ -123,13 +123,13 @@ def plot_workWindow(df, df_worktime, year):
 def get_stats(filepath, year):
     df = create_df(filepath, year)
     df_worktime = get_daily_worktime(df, year)
- #   plot_daily_worktime(df_worktime, year)
-    plot_workWindow(df, df_worktime, year)
-    #plot_active_minutes(df, year)
+    plot_daily_worktime(df_worktime, year)
+ #   plot_workWindow(df, df_worktime, year)
+    plot_active_minutes(df, year)
     #print_time_per_task(df)
 
 
-#get_stats("./data/ajat2021.csv", 2021)
-#get_stats("./data/ajat2022.csv", 2022)
+get_stats("./data/ajat2021.csv", 2021)
+get_stats("./data/ajat2022.csv", 2022)
 get_stats("./data/ajat2023.csv", 2023)
 plt.show()

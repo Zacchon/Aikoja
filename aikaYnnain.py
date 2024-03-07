@@ -1,13 +1,5 @@
 source = """
-0900 0912	english
-0926 1047	machine learning
-1216 1251	electromagnetism L
-1306 1335
-1345 1358
-1415 1530	machine learning L
-1558 1604	optimization
-1621 1734
-1841 1850
+
 """
 
 totalMinutes = 0
@@ -64,11 +56,11 @@ def create_csv(file_in, file_out):
 			numerics = splits[0].strip().split(" ")
 			# There should be exactly two numeric parts before the tab
 			if len(numerics) != 2:
-				print("Erroneous line:", line, end="")
+				print(f"Erroneous line ({idx+1}): {line}")
 				continue
 			# The numeric parts should be given in the format hhmm 
 			if len(numerics[0]) != 4 or len(numerics[1]) != 4:
-				print("Erroneous line", line, end="")
+				print(f"Erroneous line ({idx+1}): {line}")
 				continue
 
 			# Change the time format to hh:mm 
@@ -78,7 +70,7 @@ def create_csv(file_in, file_out):
 			
 			if len(splits) > 2:
 				# There should be no more than one tab in the line
-				print("Erroneous line:", line, end="")
+				print(f"Erroneous line ({idx+1}): {line}")
 				continue
 			elif len(splits) == 2:
 				# The part after the tab describes the activity
@@ -101,7 +93,7 @@ def create_csv(file_in, file_out):
 		
 		else:
 			# In case of unkwnown line format, print error message
-			print("Erroneous line:", line)
+			print(f"Erroneous line ({idx+1}): {line}")
 			continue
 
 		file_out.write(f"{current_day},{output_line}")
@@ -110,7 +102,7 @@ def create_csv(file_in, file_out):
 	file_in.close()
 	file_out.close()
 
-#f_in = open("./data/ajkoja eletty2022.txt", "r", encoding="utf8")
-#f_out = open("./data/ajat2022.csv", "w", encoding="utf8")
+f_in = open("./data/ajkoja eletty2024.txt", "r", encoding="utf8")
+f_out = open("./data/ajat2024.csv", "w", encoding="utf8")
 
-#create_csv(f_in, f_out)
+create_csv(f_in, f_out)
