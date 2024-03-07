@@ -51,8 +51,7 @@ def print_time_per_task(df):
     print(time_per_task.sum())
     print("Työtunteja päivässä:", time_per_task.sum()["tuntia"] / 365)
 
-
-def plot_daily_worktime(df, year):
+def get_daily_worktime(df, year):
     date = pd.to_datetime(f"01-01-{year}")
     timedelta = pd.to_datetime(f"02-01-{year}", dayfirst=True) - date
     zerodelta = date - date
@@ -66,6 +65,9 @@ def plot_daily_worktime(df, year):
     daily_worktime.sort_index(inplace=True)
     daily_worktime = daily_worktime.apply(lambda x: x.total_seconds() / 3600)
 
+    return daily_worktime
+
+def plot_daily_worktime(daily_worktime, year):
     weekly_worktime = daily_worktime.copy()
     
     week_timestamps = []
@@ -98,15 +100,36 @@ def plot_daily_worktime(df, year):
     plt.plot(daily_worktime)
 #    print(daily_worktime)
     plt.step(week_timestamps, weekly_average, where="post")
-    return daily_worktime
+
+def plot_workWindow(df, df_worktime, year):
+   # pd.DataFrame(df_worktime)
+   # df_worktime.to_frame()
+    df_workWindow = df_worktime.copy()
+    # WORKTIME ONKIN SERIES
+  #  df_workWindow["päivämäärä"] = df_workWindow.index.to_series()
+    df_workWindow.assign({"aloitus": 0, "lopetus": 0})
+
+
+    grouped_by_date = df.groupby("päivämäärä")
+    df_start = df.loc[grouped_by_date["aloitus"].idxmin()]
+    df_end = df.loc[grouped_by_date["lopetus"].idxmax()]
+
+    print(df_workWindow)
+    df_workWindow = pd.concat([df_workWindow, df_start], join="inner")
+       
+#    plt.figure(dpi=200)
+#    plt.title(f"Työskentelyikkunat {year}")
 
 def get_stats(filepath, year):
     df = create_df(filepath, year)
-    plot_active_minutes(df, year)
-    print_time_per_task(df)
-    return plot_daily_worktime(df, year)
+    df_worktime = get_daily_worktime(df, year)
+ #   plot_daily_worktime(df_worktime, year)
+    plot_workWindow(df, df_worktime, year)
+    #plot_active_minutes(df, year)
+    #print_time_per_task(df)
 
-get_stats("~/Desktop/ajat2021_utf8.csv", 2021)
-get_stats("~/Desktop/ajat2022_utf8.csv", 2022)
-get_stats("~/Desktop/ajat2023_utf8.csv", 2023)
+
+#get_stats("./data/ajat2021.csv", 2021)
+#get_stats("./data/ajat2022.csv", 2022)
+get_stats("./data/ajat2023.csv", 2023)
 plt.show()
